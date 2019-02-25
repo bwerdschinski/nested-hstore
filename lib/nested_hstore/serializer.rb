@@ -35,6 +35,9 @@ module NestedHstore
       when String
         type = :string
         hash = { @value_key => value }
+      when ActionController::Parameters
+        type = :hash
+        hash = standardize_value(value)
       else
         raise "Unsupported hstore type: #{value.class}"
       end
